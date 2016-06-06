@@ -17,13 +17,14 @@ app = app_api
 ###############################################################################
 ###############################################################################
 
-@app.get('/<api_index:int>/rdb/<rdb_index:int>/<path:path>')
-def api_rdb_n(api_index, rdb_index, path):
+@app.get('/rdb/<rdb_index:int>/<path:path>')
+def api_rdb_n(rdb_index, path):
 
     rdb = getattr(api_cache.cache, 'redis_plugin_{0}'.format(rdb_index))
     @rdb.memoize(expiry=ARGs.get('api_expiry'), name='view.api',
                  unless=lambda: ARGs.debug())
     def memoized(*args, **kwargs):
+        api_index = int(request.query.get('api-index', 0))
         key_name = \
             ARGs.get('api{0}_key_name'.format(api_index),
                      request.query.get('api{0}-key-name'.format(api_index)))
@@ -43,18 +44,19 @@ def api_rdb_n(api_index, rdb_index, path):
     response.content_type = 'application/json; charset=utf-8'
     return memoized(path, request.query_string)
 
-@app.get('/<api_index:int>/rdb/<path:path>')
-def api_rdb_i(api_index, path):
+@app.get('/rdb/<path:path>')
+def api_rdb_i(path):
 
-    return api_rdb_n(api_index, 0, path)
+    return api_rdb_n(0, path)
 
-@app.get('/<api_index:int>/mdb/<path:path>')
-def api_mdb_i(api_index, path):
+@app.get('/mdb/<path:path>')
+def api_mdb_i(path):
 
     mdb = getattr(api_cache.cache, 'memcached_plugin',)
     @mdb.memoize(expiry=ARGs.get('api_expiry'), name='view.api',
                  unless=lambda: ARGs.debug())
     def memoized(*args, **kwargs):
+        api_index = int(request.query.get('api-index', 0))
         key_name = \
             ARGs.get('api{0}_key_name'.format(api_index),
                      request.query.get('api{0}-key-name'.format(api_index)))
@@ -75,9 +77,9 @@ def api_mdb_i(api_index, path):
     return memoized(path, request.query_string)
 
 @app.get('/<path:path>')
-def api(path):
+def api_mdb(path):
 
-    return api_mdb_i(0, path)
+    return api_mdb_i(path)
 
 ###############################################################################
 ###############################################################################
