@@ -141,11 +141,11 @@ curl localhost:8080/rdb/my/query?my=parameters&api-index=2
 Query the API caching service running on `localhost:8080`, where the `my/query?my=parameters` path is forwarded with the request to the back-end service `#3` (indicated by `api-index=3`). The response is explicitly cached using `redis` (but this time implicitly on it's second database `#1`):
 
 ```
-curl localhost:8080/rdb/1/my/query?my=parameters&api-index=3;
+curl localhost:8080/rdb/1/my/query?my=parameters&api-index=3
 ```
 
 Query the API caching service running on `localhost:8080`, where the `my/query?my=parameters` path is forwarded with the request to the default back-end service `#0`. But to set the API key the parameter `API_KEY=KEY_VALUE` is attached to the outgoing request URL:
 
 ```
-curl localhost:8080/my/query?my=parameters&api-key-name=API_KEY&api-key-value=KEY_VALUE;
+curl localhost:8080/my/query?my=parameters&api-key-name=API_KEY&api-key-value=KEY_VALUE
 ```
