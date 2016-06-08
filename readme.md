@@ -15,7 +15,7 @@ Typing the command above will produce a short description and a listing of the c
 
 ### Back-end API service
 
-For each back-end API service up to four arguments can be set, where per service only the URL ()configurable via `api{n}-url`) would be required. If the services mandates an API key, then setting up `api{n}-key-name` and `api{n}-key-value` will do the job. Further, with `api{n}-expiry` the expiration time in in seconds can be controlled.
+For each back-end API service up to four arguments can be set, where per service only the URL (configurable via `api{n}-url`) is required. If the services mandates an API key, then setting up `api{n}-key-name` and `api{n}-key-value` will be sufficient. Further, with `api{n}-expiry` the expiration time in in seconds can be controlled.
 
 ```
 --api0-url API0_URL   API#0 URL (default: http://localhost)
