@@ -35,7 +35,11 @@ except IOError:
 if __name__ == '__main__':
 
     parser = argparse.ArgumentParser (
-        description="""API Cache Service""",
+        description=
+        """
+        API Caching Service: Enables caching of responses for requests to up to
+        8 different back-end API services.
+        """,
         formatter_class=argparse.ArgumentDefaultsHelpFormatter)
 
     parser.add_argument('--api0-url', metavar='API0_URL',
