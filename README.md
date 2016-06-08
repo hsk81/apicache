@@ -1,10 +1,8 @@
 # API Caching Service
 
-Enables caching of responses for requests to up to 8 different back-end API services.
+Enables caching of responses for requests to up to eight different back-end API services.
 
-Any incoming request is forwarded one-to-one to a via an `api-index` addressed service, where if configured an API key is attached to the outgoing request.
-
-The response is then cached using either `memcached` or `redis`, where the expiration time can be configured as well.
+Any incoming request is forwarded one-to-one to a via an `api-index` addressed service, where if configured an API key is attached to the outgoing request. The response is then cached using either `memcached` or `redis`, where the expiration time can be configured as well.
 
 ## Installation
 Setup `virtualenv` environment: requires `virtualenv2` with `python2`!
