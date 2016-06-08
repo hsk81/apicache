@@ -6,9 +6,39 @@ Any incoming request is forwarded one-to-one to a via an `api-index` addressed s
 
 The response is then cached using either `memcached` or `redis`, where the expiration time can be configured as well.
 
+## Installation
+Setup `virtualenv` environment: requires `virtualenv2` with `python2`!
+```
+./scripts/setup.sh
+```
+Switch to `virtualenv` environment:
+```
+source bin/activate
+```
+Install `python` dependencies:
+```
+./setup.py
+```
+
+## Running
+```
+./app.py --api0-url=$API0_URL \
+         --api0-key-name=$API0_KEY_NAME \
+         --api0-key-value=$API0_KEY_VALUE \
+         --api0-expiry=$API0_EXPIRY
+```
+
+* Where `$API0_URL` is the URL of the back-end service you want to cache for,
+
+* `$API0_KEY_NAME` is the query parameter name for the API key (depends on the service),
+
+* `$API0_KEY_VALUE` is the parameter value for the API key (depends on your account credentials) and
+
+* `$API0_EXPIRY` is the default expiration time in seconds for the returned responses (depends on your judgment).
+
 ## Command line arguments
 ```
-$ ./app.py --help
+./app.py --help
 ```
 
 Typing the command above will produce a short description and a listing of the command line arguments, which have been grouped below. Almost each argument can also be set via an environment variable.
@@ -94,30 +124,30 @@ The default WSGI server `waitress` is a relatively slow but purely in Python wri
 
 Query the API caching service running on `localhost:8080`, where the `my/query?my=parameters` path is forwarded with the request to the default back-end service `#0`. The response is by default cached using `memcached`, with a default `expiration` time:
 
-```bash
+```
 curl localhost:8080/my/query?my=parameters
 ```
 
 Query the API caching service running on `localhost:8080`, where the `my/query?my=parameters` path is forwarded with the request to the back-end service `#1` (indicated by `api-index=1`). The response is explicitly cached using `memcached`:
 
-```bash
+```
 curl localhost:8080/mdb/my/query?my=parameters&api-index=1
 ```
 
 Query the API caching service running on `localhost:8080`, where the `my/query?my=parameters` path is forwarded with the request to the back-end service `#2` (indicated by `api-index=2`). The response is explicitly cached using `redis` (implicitly it's first database `#0`):
 
-```bash
+```
 curl localhost:8080/rdb/my/query?my=parameters&api-index=2
 ```
 
 Query the API caching service running on `localhost:8080`, where the `my/query?my=parameters` path is forwarded with the request to the back-end service `#3` (indicated by `api-index=3`). The response is explicitly cached using `redis` (but this time implicitly on it's second database `#1`):
 
-```bash
+```
 curl localhost:8080/rdb/1/my/query?my=parameters&api-index=3;
 ```
 
 Query the API caching service running on `localhost:8080`, where the `my/query?my=parameters` path is forwarded with the request to the default back-end service `#0`. But to set the API key the parameter `API_KEY=KEY_VALUE` is attached to the outgoing request URL:
 
-```bash
+```
 curl localhost:8080/my/query?my=parameters&api-key-name=API_KEY&api-key-value=KEY_VALUE;
 ```
