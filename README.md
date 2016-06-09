@@ -106,7 +106,7 @@ The following two parameters are strongly recommended to be switched off in prod
 
 ### WSGI server
 
-The default WSGI server `waitress` is a relatively slow application container, but written purely in Python and easy to install. It is also possible to use WSGI by passing the argument below (if the external server has been correctly installed in the run-time environment and is a drop-in replacement for the default):
+The default WSGI server `waitress` is a relatively slow application container, but written purely in Python and easy to install. It is also possible to use another WSGI server by passing the argument below (if the external server has been correctly installed in the run-time environment and is a drop-in replacement for the default):
 
 ```
 -w WSGI, --wsgi WSGI  WSGI server to use (default: waitress)
