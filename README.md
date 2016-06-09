@@ -1,6 +1,6 @@
 # API Caching Service
 
-Enables caching of responses of requests to up to eight different back-end API services.
+Enables response caching of requests for up to eight different back-end API services.
 
 Any incoming request is forwarded one-to-one to a via an `api-index` addressed service, where if configured an API key is attached to the outgoing request. The response is then cached using either `memcached` or `redis`, where the expiration time can be configured as well.
 
@@ -69,7 +69,7 @@ Each of the above arguments can also be set at request time by appending `api{n}
 
 ### Memcached
 
-If no caching service is indicated at request time, then by default `memcached` will be attempted to be used: However if no such cache is present, then the response will directly be send to the originator without caching and without throwing errors:
+If no caching service is indicated at request time, then by default `memcached` will be used: However if no such cache is present, then the response will directly be sent to the originator without caching and without throwing errors:
 
 ```
 --memcached-servers MEMCACHED_SERVERS
@@ -98,7 +98,7 @@ If the `redis` caching service is indicated at request time, but if no such serv
 
 ### Development
 
-These two parameters are strongly recommended to be left switch of during production, since they are meant to be used during development:
+The following two parameters are strongly recommended to be switched off in production, since they are meant to be used only in development:
 ```
 -d, --debug           Debug flag (default: False)
 -r, --reload          Reload flag (default: False)
@@ -106,7 +106,7 @@ These two parameters are strongly recommended to be left switch of during produc
 
 ### WSGI server
 
-The default WSGI server `waitress` is a relatively slow but purely in Python written and easy to install application container. However external ones can also be used by facilitating the argument below (if the external server has been correctly installed in the run-time environment and is a drop-in replacement for the default):
+The default WSGI server `waitress` is a relatively slow application container, but written purely in Python and easy to install. It is also possible to use WSGI by passing the argument below (if the external server has been correctly installed in the run-time environment and is a drop-in replacement for the default):
 
 ```
 -w WSGI, --wsgi WSGI  WSGI server to use (default: waitress)
@@ -132,19 +132,19 @@ Query the API caching service running on `localhost:8080`, where the `my/query?m
 curl localhost:8080/mdb/my/query?my=parameters&api-index=1
 ```
 
-Query the API caching service running on `localhost:8080`, where the `my/query?my=parameters` path is forwarded with the request to the back-end service `#2` (indicated by `api-index=2`). The response is explicitly cached using `redis` (implicitly it's first database `#0`):
+Query the API caching service running on `localhost:8080`, where the `my/query?my=parameters` path is forwarded with the request to the back-end service `#2` (indicated by `api-index=2`). The response is explicitly cached using `redis` (implicitly it's the first database `#0`):
 
 ```
 curl localhost:8080/rdb/my/query?my=parameters&api-index=2
 ```
 
-Query the API caching service running on `localhost:8080`, where the `my/query?my=parameters` path is forwarded with the request to the back-end service `#3` (indicated by `api-index=3`). The response is explicitly cached using `redis` (but this time implicitly on it's second database `#1`):
+Query the API caching service running on `localhost:8080`, where the `my/query?my=parameters` path is forwarded with the request to the back-end service `#3` (indicated by `api-index=3`). The response is explicitly cached using `redis` (with the second database `#1`):
 
 ```
 curl localhost:8080/rdb/1/my/query?my=parameters&api-index=3
 ```
 
-Query the API caching service running on `localhost:8080`, where the `my/query?my=parameters` path is forwarded with the request to the default back-end service `#0`. But to set the API key the parameter `API_KEY=KEY_VALUE` is attached to the outgoing request URL:
+Query the API caching service running on `localhost:8080`, where the `my/query?my=parameters` path is forwarded with the request to the default back-end service `#0`. But to set the API key, the parameter `API_KEY=KEY_VALUE` is attached to the outgoing request URL:
 
 ```
 curl localhost:8080/my/query?my=parameters&api-key-name=API_KEY&api-key-value=KEY_VALUE
