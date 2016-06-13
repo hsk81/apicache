@@ -6,7 +6,7 @@ from bottle import Bottle, request, response
 import ARGs
 import requests
 import os.path
-import apicache.cache
+import apicache.cache as cache
 
 ###############################################################################
 ###############################################################################
@@ -20,7 +20,7 @@ app = app_api
 @app.get('/rdb/<rdb_index:int>/<path:path>')
 def api_rdb_n(rdb_index, path):
 
-    rdb = getattr(api_cache.cache, 'redis_plugin_{0}'.format(rdb_index))
+    rdb = getattr(cache, 'redis_plugin_{0}'.format(rdb_index))
     idx = int(request.query.get('api-index', 0))
     exp = request.query.get(
         'api{0}-expiry'.format(idx), ARGs.get('api{0}_expiry'.format(idx)))
@@ -52,7 +52,7 @@ def api_rdb_i(path):
 @app.get('/mdb/<path:path>')
 def api_mdb_i(path):
 
-    mdb = getattr(api_cache.cache, 'memcached_plugin')
+    mdb = getattr(cache, 'memcached_plugin')
     idx = int(request.query.get('api-index', 0))
     exp = request.query.get(
         'api{0}-expiry'.format(idx), ARGs.get('api{0}_expiry'.format(idx)))
