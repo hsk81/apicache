@@ -1,7 +1,7 @@
 #!/usr/bin/env python
 ###############################################################################
 
-from api_cache.app import app_main
+from apicache.app import app_main
 from werkzeug.debug import DebuggedApplication
 
 import ARGs

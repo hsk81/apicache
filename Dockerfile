@@ -6,13 +6,13 @@ FROM ubuntu:trusty
 MAINTAINER Hasan Karahan <hasan.karahan@blackhan.com>
 
 ## ----------------------------------------------------------------------------
-## Part (#): `api-cache:ibm` ##################################################
+## Part (#): `apicache:ibm` ###################################################
 ## ----------------------------------------------------------------------------
 
 CMD (sleep 60; npm start)
 
 ## ----------------------------------------------------------------------------
-## Part (a): `api-cache:nil` ##################################################
+## Part (a): `apicache:nil` ###################################################
 ## ----------------------------------------------------------------------------
 
 # ubuntu: updates & upgrades
@@ -43,39 +43,39 @@ RUN apt-get -y autoclean
 RUN apt-get -y autoremove
 
 ## ----------------------------------------------------------------------------
-## Part (c): `api-cache:dev` ##################################################
+## Part (c): `apicache:dev` ###################################################
 ## ----------------------------------------------------------------------------
 
-# api-cache: copy and unpack archive
+# apicache: copy and unpack archive
 ADD HEAD.zip /tmp/HEAD.zip
-RUN mkdir -p /srv/api-cache.app
-RUN unzip /tmp/HEAD.zip -d /srv/api-cache.app
+RUN mkdir -p /srv/apicache.app
+RUN unzip /tmp/HEAD.zip -d /srv/apicache.app
 RUN rm -f /tmp/HEAD.zip
 
-# api-cache: python env
-RUN cd /srv/api-cache.app && \
+# apicache: python env
+RUN cd /srv/apicache.app && \
     /bin/bash -c './scripts/setup.sh'
-RUN cd /srv/api-cache.app && \
+RUN cd /srv/apicache.app && \
     /bin/bash -c 'source bin/activate && ./setup.py install'
-RUN cd /srv/api-cache.app && \
+RUN cd /srv/apicache.app && \
     /bin/bash -c 'mkdir -p .python-eggs'
 
-# api-cache: setup repository owner
-RUN chown www-data:www-data /srv/api-cache.app -R
+# apicache: setup repository owner
+RUN chown www-data:www-data /srv/apicache.app -R
 
 ## ----------------------------------------------------------------------------
-## Part (d): `api-cache:run` ##################################################
+## Part (d): `apicache:run` ###################################################
 ## ----------------------------------------------------------------------------
 
-# api-cache: `website.run`
-RUN cd /srv/api-cache.app && echo '#!/bin/bash\n\
+# apicache: `website.run`
+RUN cd /srv/apicache.app && echo '#!/bin/bash\n\
 \n\
-cd /srv/api-cache.app && CMD=$@ && /usr/bin/sudo -u www-data -g www-data \
+cd /srv/apicache.app && CMD=$@ && /usr/bin/sudo -u www-data -g www-data \
     /bin/bash -c "source bin/activate && PYTHON_EGG_CACHE=.python-eggs $CMD"\n\
 ' > service.run && chmod +x service.run
 
-# api-cache: execute `website.run`
-ENTRYPOINT ["/srv/api-cache.app/service.run"]
+# apicache: execute `website.run`
+ENTRYPOINT ["/srv/apicache.app/service.run"]
 
 ## ----------------------------------------------------------------------------
 ## ############################################################################

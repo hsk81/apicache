@@ -2,8 +2,8 @@
 ###############################################################################
 
 DEF_VIRTENV='virtualenv2'
-DEF_APPNAME='api-cache'
-DEF_IMGNAME='hsk81/api-cache:latest'
+DEF_APPNAME='apicache'
+DEF_IMGNAME='dizmo/apicache:latest'
 DEF_PORTMAP='8080:8080'
 GIT_REFNAME='HEAD'
 
