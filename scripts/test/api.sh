@@ -5,9 +5,8 @@ SCRIPT_PATH=$(cd $(dirname ${BASH_SOURCE[0]}) && pwd) ;
 ## locations =============================================================== ##
 ###############################################################################
 
-curl -vs -XGET $APP_DNS/api/v3/datasets/WIKI/FB.json ;
-curl -vs -XGET $APP_DNS/mdb/api/v3/datasets/WIKI/FB.json ;
-curl -vs -XGET $APP_DNS/rdb/api/v3/datasets/WIKI/FB.json ;
+curl -vs -XGET $APP_DNS/data/2.5/weather?q=istanbul&api-index=0 ;
+curl -vs -XGET $APP_DNS/api/v3/datasets/WIKI/FB.json?api-index=1 ;
 
 ###############################################################################
 ###############################################################################
