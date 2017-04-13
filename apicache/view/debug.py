@@ -28,6 +28,7 @@ global QUERY
 def req (path=None):
 
     PATH = path.split ('/') if path else None
+    AUTH = request.auth
     FILES = request.files
     FORMS = request.forms
     GET = request.GET
@@ -40,6 +41,7 @@ def req (path=None):
         return {k: multi_dict.getlist (k) for k in multi_dict.keys ()}
 
     ex = {}
+    if AUTH: ex['auth'] = AUTH
     if PATH: ex['path'] = PATH
     if FILES: ex['files'] = to_dict (FILES)
     if FORMS: ex['forms'] = to_dict (FORMS)

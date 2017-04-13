@@ -18,7 +18,7 @@ Install `python` dependencies:
 ./setup.py
 ```
 
-## Running
+## Running for an API with key/value based authentication
 ```
 ./app.py --api0-url=$API0_URL \
          --api0-key-name=$API0_KEY_NAME \
@@ -30,7 +30,23 @@ Install `python` dependencies:
 
 * `$API0_KEY_NAME` is the query parameter name for the API key (depends on the service),
 
-* `$API0_KEY_VALUE` is the parameter value for the API key (depends on your account credentials) and
+* `$API0_KEY_VALUE` is the parameter value for the API key (depends on your account credentials), and
+
+* `$API0_EXPIRY` is the default expiration time in seconds for the returned responses (depends on your judgment).
+
+## Running for an API with user/pass based authentication
+```
+./app.py --api0-url=$API0_URL \
+         --api0-user=$API0_USER \
+         --api0-pass=$API0_PASS \
+         --api0-expiry=$API0_EXPIRY
+```
+
+* Where `$API0_URL` is the URL of the back-end service you want to cache for,
+
+* `$API0_USER` is the user name for a HTTP basic authentication,
+
+* `$API0_PASS` is the password for the same HTTP basic authentication, and
 
 * `$API0_EXPIRY` is the default expiration time in seconds for the returned responses (depends on your judgment).
 
@@ -53,16 +69,24 @@ For each back-end API service up to four arguments can be set, where per service
                     API#0 key value (default: None)
 --api0-expiry API0_EXPIRY
                     API#0 expiry of cache in seconds (default: 900)
+--api0-user API0_USER
+                    API#0 user (default: None)
+--api0-pass API0_PASS
+                    API#0 pass (default: None)
 
 [..]
 
---api7-url API0_URL   API#0 URL (default: http://localhost)
---api7-key-name API0_KEY_NAME
-                    API#0 key name (default: None)
---api7-key-value API0_KEY_VALUE
-                    API#0 key value (default: None)
---api7-expiry API0_EXPIRY
-                    API#0 expiry of cache in seconds (default: 900)
+--api7-url API7_URL   API#0 URL (default: http://localhost)
+--api7-key-name API7_KEY_NAME
+                    API#7 key name (default: None)
+--api7-key-value API7_KEY_VALUE
+                    API#7 key value (default: None)
+--api7-expiry API7_EXPIRY
+                    API#7 expiry of cache in seconds (default: 900)
+--api7-user API7_USER
+                    API#7 user (default: None)
+--api7-pass API7_PASS
+                    API#7 pass (default: None)
 ```
 
 Each of the above arguments can also be set at request time by appending `api{n}-url=$API_URL`, `api{n}-key-name=$API_KEY_NAME`, , `api{n}-key-value=$API_KEY_VALUE`, and `api7-expiry=$API0_EXPIRY` query parameters.

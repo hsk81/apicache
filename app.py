@@ -37,8 +37,9 @@ if __name__ == '__main__':
     parser = argparse.ArgumentParser (
         description=
         """
-        API Caching Service: Enables caching of responses for requests to up to
-        8 different back-end API services.
+        API Caching Service: Enables caching of responses for requests for up
+        to 8 different back-end API services, with support for API key based
+        or HTTP basic authentication.
         """,
         formatter_class=argparse.ArgumentDefaultsHelpFormatter)
 
@@ -54,6 +55,12 @@ if __name__ == '__main__':
     parser.add_argument('--api0-expiry', metavar='API0_EXPIRY',
         default=os.environ.get('API0_EXPIRY', 900), ## 15 minutes
         help='API#0 expiry of cache in seconds', type=int)
+    parser.add_argument('--api0-user', metavar='API0_USER',
+        default=os.environ.get('API0_USER'),
+        help='API#0 user')
+    parser.add_argument('--api0-pass', metavar='API0_PASS',
+        default=os.environ.get('API0_PASS'),
+        help='API#0 pass')
 
     parser.add_argument('--api1-url', metavar='API1_URL',
         default=os.environ.get('API1_URL', 'http://localhost'),
@@ -67,6 +74,12 @@ if __name__ == '__main__':
     parser.add_argument('--api1-expiry', metavar='API1_EXPIRY',
         default=os.environ.get('API1_EXPIRY', 900), ## 15 minutes
         help='API#1 expiry of cache in seconds', type=int)
+    parser.add_argument('--api1-user', metavar='API1_USER',
+        default=os.environ.get('API1_USER'),
+        help='API#1 user')
+    parser.add_argument('--api1-pass', metavar='API1_PASS',
+        default=os.environ.get('API1_PASS'),
+        help='API#1 pass')
 
     parser.add_argument('--api2-url', metavar='API2_URL',
         default=os.environ.get('API2_URL', 'http://localhost'),
@@ -80,6 +93,12 @@ if __name__ == '__main__':
     parser.add_argument('--api2-expiry', metavar='API2_EXPIRY',
         default=os.environ.get('API2_EXPIRY', 900), ## 15 minutes
         help='API#2 expiry of cache in seconds', type=int)
+    parser.add_argument('--api2-user', metavar='API2_USER',
+        default=os.environ.get('API2_USER'),
+        help='API#2 user')
+    parser.add_argument('--api2-pass', metavar='API2_PASS',
+        default=os.environ.get('API2_PASS'),
+        help='API#2 pass')
 
     parser.add_argument('--api3-url', metavar='API3_URL',
         default=os.environ.get('API3_URL', 'http://localhost'),
@@ -93,6 +112,12 @@ if __name__ == '__main__':
     parser.add_argument('--api3-expiry', metavar='API3_EXPIRY',
         default=os.environ.get('API3_EXPIRY', 900), ## 15 minutes
         help='API#3 expiry of cache in seconds', type=int)
+    parser.add_argument('--api3-user', metavar='API3_USER',
+        default=os.environ.get('API3_USER'),
+        help='API#3 user')
+    parser.add_argument('--api3-pass', metavar='API3_PASS',
+        default=os.environ.get('API3_PASS'),
+        help='API#3 pass')
 
     parser.add_argument('--api4-url', metavar='API4_URL',
         default=os.environ.get('API4_URL', 'http://localhost'),
@@ -106,6 +131,12 @@ if __name__ == '__main__':
     parser.add_argument('--api4-expiry', metavar='API4_EXPIRY',
         default=os.environ.get('API4_EXPIRY', 900), ## 15 minutes
         help='API#4 expiry of cache in seconds', type=int)
+    parser.add_argument('--api4-user', metavar='API4_USER',
+        default=os.environ.get('API4_USER'),
+        help='API#4 user')
+    parser.add_argument('--api4-pass', metavar='API4_PASS',
+        default=os.environ.get('API4_PASS'),
+        help='API#4 pass')
 
     parser.add_argument('--api5-url', metavar='API5_URL',
         default=os.environ.get('API5_URL', 'http://localhost'),
@@ -119,6 +150,12 @@ if __name__ == '__main__':
     parser.add_argument('--api5-expiry', metavar='API5_EXPIRY',
         default=os.environ.get('API5_EXPIRY', 900), ## 15 minutes
         help='API#5 expiry of cache in seconds', type=int)
+    parser.add_argument('--api5-user', metavar='API5_USER',
+        default=os.environ.get('API5_USER'),
+        help='API#5 user')
+    parser.add_argument('--api5-pass', metavar='API5_PASS',
+        default=os.environ.get('API5_PASS'),
+        help='API#5 pass')
 
     parser.add_argument('--api6-url', metavar='API6_URL',
         default=os.environ.get('API6_URL', 'http://localhost'),
@@ -132,6 +169,12 @@ if __name__ == '__main__':
     parser.add_argument('--api6-expiry', metavar='API6_EXPIRY',
         default=os.environ.get('API6_EXPIRY', 900), ## 15 minutes
         help='API#6 expiry of cache in seconds', type=int)
+    parser.add_argument('--api6-user', metavar='API6_USER',
+        default=os.environ.get('API6_USER'),
+        help='API#6 user')
+    parser.add_argument('--api6-pass', metavar='API6_PASS',
+        default=os.environ.get('API6_PASS'),
+        help='API#6 pass')
 
     parser.add_argument('--api7-url', metavar='API7_URL',
         default=os.environ.get('API7_URL', 'http://localhost'),
@@ -145,6 +188,12 @@ if __name__ == '__main__':
     parser.add_argument('--api7-expiry', metavar='API7_EXPIRY',
         default=os.environ.get('API7_EXPIRY', 900), ## 15 minutes
         help='API#7 expiry of cache in seconds', type=int)
+    parser.add_argument('--api7-user', metavar='API7_USER',
+        default=os.environ.get('API7_USER'),
+        help='API#7 user')
+    parser.add_argument('--api7-pass', metavar='API7_PASS',
+        default=os.environ.get('API7_PASS'),
+        help='API#7 pass')
 
     parser.add_argument ('--host', metavar='HOST',
         default=os.environ.get ('OPENSHIFT_PYTHON_IP', 'localhost'),

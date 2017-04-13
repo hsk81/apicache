@@ -28,15 +28,28 @@ def api_rdb_n(rdb_index, path):
     @rdb.memoize(expiry=exp, name='view.rdb', unless=lambda: ARGs.debug())
     def memoized(*args, **kwargs):
 
-        key_name = request.query.get(
-            'api{0}-key-name'.format(idx), ARGs.get('api{0}_key_name'.format(idx)))
-        key_value = request.query.get(
-            'api{0}-key-value'.format(idx), ARGs.get('api{0}_key_value'.format(idx)))
-        api_url = request.query.get(
-            'api{0}-url'.format(idx), ARGs.get('api{0}_url'.format(idx)))
+        if request.auth:
+            auth = request.auth
+        else:
+            auth_user = ARGs.get('api{0}_user'.format(idx))
+            auth_pass = ARGs.get('api{0}_pass'.format(idx))
+            auth = (auth_user, auth_pass) if auth_user else None
 
-        if key_name and key_value: request.query[key_name] = key_value
-        res = requests.get(os.path.join(api_url, path), params=request.query)
+        key_name = request.query.get(
+            'api{0}-key-name'.format(idx),
+            ARGs.get('api{0}_key_name'.format(idx)))
+        key_value = request.query.get(
+            'api{0}-key-value'.format(idx),
+            ARGs.get('api{0}_key_value'.format(idx)))
+        api_url = request.query.get(
+            'api{0}-url'.format(idx),
+            ARGs.get('api{0}_url'.format(idx)))
+
+        if key_name and key_value:
+            request.query[key_name] = key_value
+
+        res = requests.get(
+            os.path.join(api_url, path), auth=auth, params=request.query)
         res.raise_for_status()
 
         return res.text
@@ -60,15 +73,28 @@ def api_mdb_i(path):
     @mdb.memoize(expiry=exp, name='view.mdb', unless=lambda: ARGs.debug())
     def memoized(*args, **kwargs):
 
-        key_name = request.query.get(
-            'api{0}-key-name'.format(idx), ARGs.get('api{0}_key_name'.format(idx)))
-        key_value = request.query.get(
-            'api{0}-key-value'.format(idx), ARGs.get('api{0}_key_value'.format(idx)))
-        api_url = request.query.get(
-            'api{0}-url'.format(idx), ARGs.get('api{0}_url'.format(idx)))
+        if request.auth:
+            auth = request.auth
+        else:
+            auth_user = ARGs.get('api{0}_user'.format(idx))
+            auth_pass = ARGs.get('api{0}_pass'.format(idx))
+            auth = (auth_user, auth_pass) if auth_user else None
 
-        if key_name and key_value: request.query[key_name] = key_value
-        res = requests.get(os.path.join(api_url, path), params=request.query)
+        key_name = request.query.get(
+            'api{0}-key-name'.format(idx),
+            ARGs.get('api{0}_key_name'.format(idx)))
+        key_value = request.query.get(
+            'api{0}-key-value'.format(idx),
+            ARGs.get('api{0}_key_value'.format(idx)))
+        api_url = request.query.get(
+            'api{0}-url'.format(idx),
+            ARGs.get('api{0}_url'.format(idx)))
+
+        if key_name and key_value:
+            request.query[key_name] = key_value
+
+        res = requests.get(
+            os.path.join(api_url, path), auth=auth, params=request.query)
         res.raise_for_status()
 
         return res.text
