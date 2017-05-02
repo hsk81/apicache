@@ -2,7 +2,7 @@
 ## ############################################################################
 ## ----------------------------------------------------------------------------
 
-FROM ubuntu:trusty
+FROM ubuntu:xenial
 MAINTAINER Hasan Karahan <hasan.karahan@blackhan.com>
 
 ## ----------------------------------------------------------------------------
@@ -37,15 +37,9 @@ RUN apt-get -y install python-all-dev
 RUN apt-get -y install python-pip
 RUN apt-get -y install python-virtualenv
 
-# check for virtualenv2 and otherwise create a symlink to virtualenv
+# symlink virtualenv2 to virtualenv
 RUN if ! [ -x "$(command -v virtualenv2)" ]; \
-        then echo 'Error: virtualenv2 was not installed.' ; \
         ln -s /usr/bin/virtualenv /usr/local/bin/virtualenv2 ; \
-    fi
-
-# if virtualenv2 is accessible print its location (or symlink)
-RUN if [ -x "$(command -v virtualenv2)" ]; \
-        then ls -al /usr/local/bin/virtualenv2 ; \
     fi
 
 # clean & remove
