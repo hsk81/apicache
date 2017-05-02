@@ -37,11 +37,6 @@ RUN apt-get -y install python-all-dev
 RUN apt-get -y install python-pip
 RUN apt-get -y install python-virtualenv
 
-# symlink virtualenv2 to virtualenv
-RUN if ! [ -x "$(command -v virtualenv2)" ]; \
-        ln -s /usr/bin/virtualenv /usr/local/bin/virtualenv2 ; \
-    fi
-
 # clean & remove
 RUN apt-get -y clean
 RUN apt-get -y autoclean
