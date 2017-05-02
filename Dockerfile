@@ -9,7 +9,7 @@ MAINTAINER Hasan Karahan <hasan.karahan@blackhan.com>
 ## Part (#): `apicache:ibm` ###################################################
 ## ----------------------------------------------------------------------------
 
- CMD (sleep 60; npm start)
+## CMD (sleep 60; npm start)
 
 ## ----------------------------------------------------------------------------
 ## Part (a): `apicache:nil` ###################################################
@@ -37,13 +37,13 @@ RUN apt-get -y install python-all-dev
 RUN apt-get -y install python-pip
 RUN apt-get -y install python-virtualenv
 
-# checks whether virtualenv2 is available and creates a symlink to virtualenv otherwise
+# check for virtualenv2 and otherwise create a symlink to virtualenv
 RUN if ! [ -x "$(command -v virtualenv2)" ]; \
         then echo 'Error: virtualenv2 was not installed.' ; \
         ln -s /usr/bin/virtualenv /usr/local/bin/virtualenv2 ; \
     fi
 
-# if virtualenv2 is accessible, print its location or symlinkø
+# if virtualenv2 is accessible print its location (or symlink)
 RUN if [ -x "$(command -v virtualenv2)" ]; \
         then ls -al /usr/local/bin/virtualenv2 ; \
     fi
