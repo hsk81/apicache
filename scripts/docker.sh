@@ -9,11 +9,11 @@ source ${SCRIPT_PATH}/conf/build.sh
 ###############################################################################
 
 if [ -x "$(command -v docker.io)" ];
-    then DOCKERCMD=docker.io ;
+    then DOCKER_CMD=docker.io ;
 fi;
 
 if [ -x "$(command -v docker)" ];
-    then DOCKERCMD=docker ;
+    then DOCKER_CMD=docker ;
 fi;
 
 ###############################################################################
@@ -31,20 +31,20 @@ function git_archive_rm () {
 ###############################################################################
 
 function docker_build () {
-    $DOCKERCMD build -t ${1} .
+    $DOCKER_CMD build -t ${1} .
 }
 
 function docker_run () {
-    $DOCKERCMD run --name ${1} -d -p ${2} ${3} ${@:5}
+    $DOCKER_CMD run --name ${1} -d -p ${2} ${3} ${@:5}
 }
 
 function docker_dev () {
-    $DOCKERCMD run --name ${1} -t -p ${2} ${3} ${@:5}
+    $DOCKER_CMD run --name ${1} -t -p ${2} ${3} ${@:5}
 }
 
 function docker_rm () {
-    $DOCKERCMD kill ${1} 2> /dev/null ;
-    $DOCKERCMD rm ${1} 2> /dev/null ;
+    $DOCKER_CMD kill ${1} 2> /dev/null ;
+    $DOCKER_CMD rm ${1} 2> /dev/null ;
 }
 
 ###############################################################################
