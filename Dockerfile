@@ -85,7 +85,7 @@ cd /srv/apicache.app && CMD=$@ && /usr/bin/sudo -u www-data -g www-data \
     /bin/bash -c "source bin/activate && PYTHON_EGG_CACHE=.python-eggs $CMD"\n\
 ' > service.run && chmod +x service.run
 
-# apicache: execute `website.run`
+# apicache: execute `service.run`
 ENTRYPOINT ["/srv/apicache.app/service.run"]
 
 ## ----------------------------------------------------------------------------

@@ -8,7 +8,7 @@ from setuptools import setup
 
 setup (
     name='apicache',
-    version='1.0.0',
+    version='1.0.1',
     description='API Cache Service(s)',
     author='Hasan Karahan',
     author_email='hasan.karahan@blackhan.com',
