@@ -61,7 +61,7 @@ RUN chown www-data:www-data /srv/apicache.app -R
 ## Part (d): `apicache:run` ###################################################
 ## ----------------------------------------------------------------------------
 
-# apicache: `website.run`
+# apicache: `service.run`
 RUN cd /srv/apicache.app && echo '#!/bin/bash\n\
 \n\
 cd /srv/apicache.app && CMD=$@ && /usr/bin/sudo -u www-data -g www-data \
