@@ -173,3 +173,38 @@ Query the API caching service running on `localhost:8080`, where the `my/query?m
 ```
 curl localhost:8080/my/query?my=parameters&api-key-name=API_KEY&api-key-value=KEY_VALUE
 ```
+
+## Docker support
+
+There is a `Dockerfile`, which provides Docker support. Further, there is a `./scripts/docker.sh` helper script, which further simplifies using `apicache` with Docker:
+
+1. Ensure that any running `apicache` Docker instances are removed:
+```
+$ ./scripts/docker.sh rm
+```
+
+2. Start the `apicache` Docker instance, showing for now only the CLI help. Please note, that `dev` is used, which causes Docker's terminal output to be enabled:
+```
+$ ./scripts/docker.sh dev ./app.py --help
+$ ./scripts/docker.sh rm
+```
+
+3. Run again the `apicache` Docker instance: This is possible since the most recent instance should have been removed. The instance is pointing now (as an example) to the HTTP request and respose service at `https://httpbin.org`. Please note the usage of `run` (instead of `dev), plus the `host` parameter binding `app.py` *within* the Docker to any IP address:
+```
+$ ./scripts/docker.sh run ./app.py --host=0.0.0.0 --api0-url=https://httpbin.org
+```
+
+4. A sample indirect invocation of `httpbin.org/ip` via `apicache`, which can now be accessed via `localhost:8080`:
+```
+$ curl localhost:8080/ip
+{
+  "origin": "95.12.127.104"
+}
+```
+
+5. Don't forget to remove the `apicache` Docker instance, when you're done with it:
+```
+$ ./scripts/docker.sh rm
+```
+
+If you want to invoke the Docker commands directly without going through the `docker.sh` helper script, the please check directly the contents of the script.
